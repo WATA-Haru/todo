@@ -25,14 +25,16 @@
 function create_todo()
 {
     const input = document.getElementById("user_input");
+    if (!input.value)
+        return ;
     const todo_field = document.getElementById("todo_field");
-
-    const todo = document.createElement("p");
-    todo_field.appendChild(todo);
+    const todo_item = document.createElement("p");
+    todo_item.className = "todo_item";
+    todo_field.appendChild(todo_item);
     const content = document.createTextNode(
         `${input.value}`
     );
-    todo.appendChild(content);
+    todo_item.appendChild(content);
     input.value = '';
 }
 
