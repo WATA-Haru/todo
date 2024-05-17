@@ -1,42 +1,18 @@
 "use strict"
 
-//// create dot sample by using DOM
-///**
-// * create <p></p> tag in todo section
-// * @returns {void}
-// */
-//function create_todo()
-//{
-//    /**
-//     * @param {Object} todo_field - section tag for todo fileld
-//     * @param {Object} todo - the todo to be added
-//     * @param {Object} content - the content text fileld
-//     * 
-//     */
-//    const todo_field = document.querySelector("section");
-//    const todo = document.createElement("p");
-//    todo_field.appendChild(todo);
-//    const content = document.createTextNode( 
-//        "create todo test!"
-//    );
-//    todo.appendChild(content)
-//}
-
-function create_todo()
-{
-    const input = document.getElementById("user_input");
+function create_todo() {
+    const input = document.querySelector(".user_input");
     if (!input.value)
         return ;
-    const todo_field = document.getElementById("todo_field");
-    const todo_item = document.createElement("p");
-    todo_item.className = "todo_item";
-    todo_field.appendChild(todo_item);
-    const content = document.createTextNode(
-        `${input.value}`
-    );
-    todo_item.appendChild(content);
+    const todo_area = document.querySelector(".todo_area");
+    //const todo_area = document.querySelector("ul"); //ok
+    //const todo_area = document.getElementByClass("hoge"); // bug occurs
+    
+    const todo_item = document.createElement("li");
+
+    //TODO: render
+    //const todo_item = renderTodo(input);
+    todo_item.innerHTML = `${input.value}`;
+    todo_area.appendChild(todo_item);
     input.value = '';
 }
-
-const submit_button = document.getElementById("submit_button");
-submit_button.addEventListener('click', create_todo);

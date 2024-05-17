@@ -6,15 +6,19 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<input type="text" id="user_input"/>
-		<input type="button" id="submit_button" value="+"></button>
+		<input type="text" class="user_input"/>
+		<button class="submit_button" onclick="create_todo()">+</button>
 
-		<section id="todo_field">
+		<section class="todo_wrapper">
 			<h1>TODO</h1>
+			<ul class="todo_area">
+			</ul>
 		</section>
 
-		<section id="done_fileld">
+		<section class="done_wrapper">
 			<h1>DONE</h1>
+			<ul class="done_area">
+			</ul>
 		</section>
 
 		<script src="todo.js"></script>
