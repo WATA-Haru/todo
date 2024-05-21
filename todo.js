@@ -83,12 +83,11 @@ function createTodo() {
     //add todo to todos
     const todoArea = document.querySelector(".todoArea");
     appendTodos(input.value, StatusEnum.TODO);
-    const current = todos.at(-1);
     
     // create elms
     const todoItemWrapper = createElement("div", "todoItemWrapper", null);
     const todoItem = createElement("li", "todoItem", null);
-    const todoContent = createElement("span", "todoContent", current.content);
+    const todoContent = createElement("span", "todoContent", input.value);
 
     const doneButton = createElement("button", "doneButton", StatusEnum.DONE);
     doneButton.addEventListener("click", doneTodo);
@@ -96,7 +95,7 @@ function createTodo() {
     const deleteButton = createElement("button", "deleteButton", StatusEnum.DELETED);
     deleteButton.addEventListener("click", deleteTodo);
        
-    // appendChild
+    // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
     todoItemWrapper.appendChild(todoItem);
     todoItem.appendChild(doneButton);
