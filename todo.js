@@ -80,7 +80,7 @@ function createElementWrapper(tag, className, innerText) {
         element.className = className;
     }
     if (innerText) {
-        element.innerHTML = innerText;
+        element.textContent = innerText;
     }
     return element;
 }
