@@ -1,12 +1,12 @@
 "use strict"
 
 /**
- * Enums for todo status
  * @description 
- *     **why is status defined as Object?** <br>
- *     1. change and add status easily by using Object <br>
- *     2. search easily on editor by using StatusEnum word because this code includes many todoXxx value <br>
- *     3. prevent spell mistake <br>
+ * Enums for todo status <br>
+ * <strong>why is status defined as Object?</strong><br>
+ * 1. change and add status easily by using Object <br>
+ * 2. search easily on editor by using StatusEnum word because this code includes many todoXxx value <br>
+ * 3. prevent spell mistake <br>
  * @typedef {Object} StatusEnum
  * @property {string} TODO - Represents a todo status
  * @property {string} DONE - Represents a done status
@@ -60,7 +60,18 @@ function appendTodos(inputContent, inputStatus) {
     todos.push(todo);
 }
 
-function createElement(tag, className, innerText) {
+/**
+ * @todo - add check args statement when tag is falsy
+ * @description
+ * this function wrap createElement <br>
+ * recieve className and innerText as option values <br>
+ * createElementWrapper set these params.
+ * @param {string} tag - html tag will be created
+ * @param {string} className - (option) html class name
+ * @param {string} innerText - (option) text content
+ * @returns {object} element - createElement result
+ */
+function createElementWrapper(tag, className, innerText) {
     if (!tag) {
         return ;
     }
@@ -74,6 +85,11 @@ function createElement(tag, className, innerText) {
     return element;
 }
 
+/**
+ * @description
+ *  createTodo() crates todo component and add it to todoArea
+ * @returns {void}
+ */
 function createTodo() {
     const input = document.querySelector(".userInput");
     if (!input.value) {
@@ -85,14 +101,14 @@ function createTodo() {
     appendTodos(input.value, StatusEnum.TODO);
     
     // create elms
-    const todoItemWrapper = createElement("div", "todoItemWrapper", null);
-    const todoItem = createElement("li", "todoItem", null);
-    const todoContent = createElement("span", "todoContent", input.value);
+    const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
+    const todoItem = createElementWrapper("li", "todoItem", null);
+    const todoContent = createElementWrapper("span", "todoContent", input.value);
 
-    const doneButton = createElement("button", "doneButton", StatusEnum.DONE);
+    const doneButton = createElementWrapper("button", "doneButton", StatusEnum.DONE);
     doneButton.addEventListener("click", doneTodo);
 
-    const deleteButton = createElement("button", "deleteButton", StatusEnum.DELETED);
+    const deleteButton = createElementWrapper("button", "deleteButton", StatusEnum.DELETED);
     deleteButton.addEventListener("click", deleteTodo);
        
     // add todo elms to todoArea by using DOM handle
@@ -104,10 +120,18 @@ function createTodo() {
     input.value = '';
 }
 
+/**
+ * @todo - create deleteTodo function
+ * @returns {void}
+ */
 function deleteTodo() {
     console.log("deleteTodo!");
 }
 
+/**
+ * @todo - create doneTodo function
+ * @returns {void}
+ */
 function doneTodo() {
     console.log("doneTodo!")
 }
