@@ -19,12 +19,28 @@ const StatusEnum = Object.freeze({
     DELETED: "deleted"
 });
 
+/** Class Todo item*/
+class Todo {
+    /**
+     * Create a todo item
+     * @param {string} id 
+     * @param {string} content 
+     * @param {StatusEnum} status 
+     */
+    constructor(id, content, status) 
+    {
+        this.id = id;
+        this.content = content;
+        this.status = status;
+    }
+}
+
 /**
  * Todo items array
  * @typedef {Object} Todo - todo object
  * @property {string} id - Todo id (uuid). It is used when change indivisual todo item.
- * @property {StatusEnum} status - todo status that defines statusEnum.
  * @property {string} content - The description of the todo item.
+ * @property {StatusEnum} status - todo status that defines statusEnum.
  * todos has todo's content and status value
  * @type {Todo[]}
  *
@@ -35,20 +51,14 @@ const todos = [
 /**
  * @returns {void}
  * @param {string} id Todo id (uuid).
- * @param {StatusEnum} inputStatus todo status filld.
  * @param {string} inputContent todo content field.
+ * @param {StatusEnum} inputStatus todo status filld.
  */
 function appendTodos(inputContent, inputStatus)
 {
     const uuid = crypto.randomUUID();
-
-    todos.push(
-        {
-            id: uuid,
-            status: inputStatus,
-            content: inputContent
-        }
-    );
+    const todo = new Todo(uuid, inputContent, inputStatus)
+    todos.push(todo);
 }
 
 function createElement(tag, className, innerText)
