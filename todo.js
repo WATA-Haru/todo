@@ -54,52 +54,48 @@ const todos = [
  * @param {string} inputContent todo content field.
  * @param {StatusEnum} inputStatus todo status filld.
  */
-function appendTodos(inputContent, inputStatus)
-{
+function appendTodos(inputContent, inputStatus) {
     const uuid = crypto.randomUUID();
     const todo = new Todo(uuid, inputContent, inputStatus)
     todos.push(todo);
 }
 
-function createElement(tag, className, innerText)
-{
+function createElement(tag, className, innerText) {
+    if (!tag) {
+        return ;
+    }
     const element = document.createElement(tag);
-    if (className)
+    if (className) {
         element.className = className;
-    if (innerText)
+    }
+    if (innerText) {
         element.innerHTML = innerText;
+    }
     return element;
-}
-
-function createButton(className, onclickFunc, innerText)
-{    
-    const button = document.createElement("button");
-    if (className)
-        button.className = className;
-    if (onclickFunc)
-        button.onclick = onclickFunc;
-    if (innerText)
-        button.innerHTML = innerText;
-    return button;
 }
 
 function createTodo() {
     const input = document.querySelector(".userInput");
-    if (!input.value)
+    if (!input.value) {
         return ;
+    }
 
     //add todo to todos
     const todoArea = document.querySelector(".todoArea");
     appendTodos(input.value, StatusEnum.TODO);
     const current = todos.at(-1);
-
+    
     // create elms
-    const todoItemWrapper = createElement("div", "todoItemWrapper", false);
-    const todoItem = createElement("li", "todoItem", false);
+    const todoItemWrapper = createElement("div", "todoItemWrapper", null);
+    const todoItem = createElement("li", "todoItem", null);
     const todoContent = createElement("span", "todoContent", current.content);
-    const doneButton = createButton("doneButton", doneTodo, StatusEnum.DONE);
-    const deleteButton = createButton("deleteButton", deleteTodo, StatusEnum.DELETED);
-   
+
+    const doneButton = createElement("button", "doneButton", StatusEnum.DONE);
+    doneButton.addEventListener("click", doneTodo);
+
+    const deleteButton = createElement("button", "deleteButton", StatusEnum.DELETED);
+    deleteButton.addEventListener("click", deleteTodo);
+       
     // appendChild
     todoArea.appendChild(todoItemWrapper);
     todoItemWrapper.appendChild(todoItem);
@@ -116,3 +112,5 @@ function deleteTodo() {
 function doneTodo() {
     console.log("doneTodo!")
 }
+
+document.querySelector(".submitButton").addEventListener("click", createTodo);
