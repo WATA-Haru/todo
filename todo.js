@@ -104,6 +104,9 @@ function createTodo() {
     todoItem.appendChild(doneButton);
     todoItem.appendChild(todoContent);
     todoItem.appendChild(deleteButton);
+    
+    // add uuid to todoItemWrapper
+    todoItemWrapper.id = todos?.at(-1).id;
     input.value = '';
 }
 
@@ -112,6 +115,8 @@ function createTodo() {
  * @returns {void}
  */
 function deleteTodo() {
+    // addEventListenerでon_clickで発火するように、ここで、現在のid属性を取得すればok
+    // wrapperclass の delete_buttonのidを取得する。
     console.log("deleteTodo!");
 }
 
