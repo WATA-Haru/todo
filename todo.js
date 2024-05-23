@@ -19,22 +19,6 @@ const StatusEnum = Object.freeze({
     DELETED: "deleted"
 });
 
-/** Class Todo item*/
-class Todo {
-    /**
-     * Create a todo item
-     * @param {string} id 
-     * @param {string} content 
-     * @param {StatusEnum} status 
-     */
-    constructor(id, content, status) 
-    {
-        this.id = id;
-        this.content = content;
-        this.status = status;
-    }
-}
-
 /**
  * Todo items array
  * @typedef {Object} Todo - todo object
@@ -55,9 +39,12 @@ const todos = [
  * @param {StatusEnum} inputStatus todo status filld.
  */
 function appendTodos(inputContent, inputStatus) {
-    const uuid = crypto.randomUUID();
-    const todo = new Todo(uuid, inputContent, inputStatus)
-    todos.push(todo);
+    const newTask = {
+        id: crypto.randomUUID(),
+        content: inputContent,
+        status: inputStatus
+    }
+    todos.push(newTask);
 }
 
 /**
