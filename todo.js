@@ -29,7 +29,7 @@ const StatusEnum = Object.freeze({
  * @type {Todo[]}
  *
 **/
-const todos = [
+let todos = [
 ];
 
 /**
@@ -89,6 +89,8 @@ function createTodo() {
     
     // create elms
     const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
+    todoItemWrapper.id = todos?.at(-1).id; //get newest todo item by using todos?.at(-1)
+
     const todoItem = createElementWrapper("li", "todoItem", null);
     const todoContent = createElementWrapper("span", "todoContent", input.value);
 
@@ -96,7 +98,7 @@ function createTodo() {
     doneButton.addEventListener("click", doneTodo);
 
     const deleteButton = createElementWrapper("button", "deleteButton", StatusEnum.DELETED);
-    deleteButton.addEventListener("click", deleteTodo);
+    deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
        
     // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
@@ -105,19 +107,25 @@ function createTodo() {
     todoItem.appendChild(todoContent);
     todoItem.appendChild(deleteButton);
     
-    // add uuid to todoItemWrapper
-    todoItemWrapper.id = todos?.at(-1).id;
     input.value = '';
 }
 
 /**
- * @todo - create deleteTodo function
- * @returns {void}
+ * @description
+ *  deleteTodo(deleteId) delete todo object from todos and todoItemWrapper class from DOM 
+ * @param {string} deleteId - uuid of todoItem Wraper class
  */
-function deleteTodo() {
-    // addEventListenerでon_clickで発火するように、ここで、現在のid属性を取得すればok
-    // wrapperclass の delete_buttonのidを取得する。
-    console.log("deleteTodo!");
+function deleteTodo(deleteId) {
+    /**
+     * deleteItemWrapper - get todoItemWrapper by using uuid 
+     * @type {Object}
+     */
+    const deleteItemWrapper = document.getElementById(`${deleteId}`);
+
+    todos = todos.filter((currentValue) => {
+        return currentValue.id !== deleteId;
+    });
+    deleteItemWrapper.remove();
 }
 
 /**
