@@ -116,11 +116,9 @@ function createTodo() {
  * @param {string} deleteId - uuid of todoItem Wraper class
  */
 function deleteTodo(deleteId) {
-    /**
-     * deleteItemWrapper - get todoItemWrapper by using uuid 
-     * @type {Object}
-     */
+    /** @type {Object} */
     const deleteItemWrapper = document.getElementById(`${deleteId}`);
+    /** @type {Number} */
     const deleteIndex = todos?.findIndex((todo) => todo.id === deleteId);
     
     if (deleteIndex > -1)
