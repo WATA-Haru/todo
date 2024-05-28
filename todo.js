@@ -121,15 +121,16 @@ function deleteTodo(deleteId) {
      * @type {Object}
      */
     const deleteItemWrapper = document.getElementById(`${deleteId}`);
-    console.log(`deleteTodo Called!`) //TODO: delete later
-    console.log(`Before: ${JSON.stringify(todos, null, 2)}`);// TODO: delete later
-
     const deleteIndex = todos?.findIndex((todo) => todo.id === deleteId);
-    console.log(`delete:${todos[deleteIndex].content}`);//TODO: delete later
-
-    todos.splice(deleteIndex, 1);
-    deleteItemWrapper.remove();
-    console.log(`After: ${JSON.stringify(todos, null, 2)}`); //TODO: delete later
+    
+    if (deleteIndex > -1)
+    {
+        todos.splice(deleteIndex, 1);
+    }
+    if (deleteItemWrapper)
+    {
+        deleteItemWrapper.remove();
+    }
 }
 
 /**
