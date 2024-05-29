@@ -120,10 +120,11 @@ function deleteTodo(deleteId) {
         return ;
     }
     /** @type {HTMLDivElement | null} */
-    const hasDeleteItemWrapper = document.getElementById(deleteId);
+    const DeleteItemWrapper = document.getElementById(deleteId);
+    /** @type {Number} */
     const hasTodos = todos.length;
     
-    if (hasTodos && hasDeleteItemWrapper) {
+    if (hasTodos && DeleteItemWrapper) {
         /**
          * @type {Todo[] | []}
          */
@@ -133,7 +134,7 @@ function deleteTodo(deleteId) {
         todos.length = 0; //clear todos
         todos.push(...filteredTodos);
 
-        hasDeleteItemWrapper.remove();
+        DeleteItemWrapper.remove();
     }
 }
 
