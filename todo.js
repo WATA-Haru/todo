@@ -26,8 +26,8 @@ const StatusEnum = Object.freeze({
  * @property {string} content - The description of the todo item.
  * @property {StatusEnum} status - todo status that defines statusEnum.
 **/
-/**@type {Todo[] | null} */
-let todos = [];
+/**@type {Todo[] | []} */
+const todos = [];
 
 /**
  * @returns {void}
@@ -116,16 +116,24 @@ function createTodo() {
  * @param {string} deleteId - uuid of todoItem Wraper class
  */
 function deleteTodo(deleteId) {
-    /** @type {HTMLDivElement | null} */
-    const deleteItemWrapper = document.getElementById(deleteId);
-
-    if (todos.length) {
-        todos = todos.filter((currentValue) => {
-            return currentValue.id !== deleteId;
-        });
+    if (!deleteId) {
+        return ;
     }
-    if (deleteItemWrapper) {
-        deleteItemWrapper.remove();
+    /** @type {HTMLDivElement | null} */
+    const hasDeleteItemWrapper = document.getElementById(deleteId);
+    const hasTodos = todos.length;
+    
+    if (hasTodos && hasDeleteItemWrapper) {
+        /**
+         * @type {Todo[] | []}
+         */
+        const filteredTodos = todos.filter((currentValue) => {
+            return currentValue.id != deleteId;
+        });
+        todos.length = 0; //clear todos
+        todos.push(...filteredTodos);
+
+        hasDeleteItemWrapper.remove();
     }
 }
 
