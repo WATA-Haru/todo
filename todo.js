@@ -20,17 +20,14 @@ const StatusEnum = Object.freeze({
 });
 
 /**
- * Todo items array
+ * todos has todo's content and status value
  * @typedef {Object} Todo - todo object
  * @property {string} id - Todo id (uuid). It is used when change indivisual todo item.
  * @property {string} content - The description of the todo item.
  * @property {StatusEnum} status - todo status that defines statusEnum.
- * todos has todo's content and status value
- * @type {Todo[]}
- *
 **/
-let todos = [
-];
+/**@type {Todo[] | null} */
+let todos = [];
 
 /**
  * @returns {void}
@@ -116,17 +113,15 @@ function createTodo() {
  * @param {string} deleteId - uuid of todoItem Wraper class
  */
 function deleteTodo(deleteId) {
-    /** @type {Object} */
-    const deleteItemWrapper = document.getElementById(`${deleteId}`);
-    /** @type {Number} */
-    const deleteIndex = todos?.findIndex((todo) => todo.id === deleteId);
-    
-    if (deleteIndex > -1)
-    {
-        todos.splice(deleteIndex, 1);
+    /** @type {HTMLDivElement | null} */
+    const deleteItemWrapper = document.getElementById(deleteId);
+
+    if (todos.length) {
+        todos = todos.filter((currentValue) => {
+            return currentValue.id !== deleteId;
+        });
     }
-    if (deleteItemWrapper)
-    {
+    if (deleteItemWrapper) {
         deleteItemWrapper.remove();
     }
 }
