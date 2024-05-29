@@ -20,17 +20,14 @@ const StatusEnum = Object.freeze({
 });
 
 /**
- * Todo items array
+ * todos has todo's content and status value
  * @typedef {Object} Todo - todo object
  * @property {string} id - Todo id (uuid). It is used when change indivisual todo item.
  * @property {string} content - The description of the todo item.
  * @property {StatusEnum} status - todo status that defines statusEnum.
- * todos has todo's content and status value
- * @type {Todo[]}
- *
 **/
-const todos = [
-];
+/**@type {Todo[] | []} */
+const todos = [];
 
 /**
  * @returns {void}
@@ -89,6 +86,11 @@ function createTodo() {
     
     // create elms
     const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
+    if (todos.length)
+    {
+        todoItemWrapper.id = todos.at(-1).id;
+    }
+
     const todoItem = createElementWrapper("li", "todoItem", null);
     const todoContent = createElementWrapper("span", "todoContent", input.value);
 
@@ -96,7 +98,7 @@ function createTodo() {
     doneButton.addEventListener("click", doneTodo);
 
     const deleteButton = createElementWrapper("button", "deleteButton", StatusEnum.DELETED);
-    deleteButton.addEventListener("click", deleteTodo);
+    deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
        
     // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
@@ -104,15 +106,36 @@ function createTodo() {
     todoItem.appendChild(doneButton);
     todoItem.appendChild(todoContent);
     todoItem.appendChild(deleteButton);
+    
     input.value = '';
 }
 
 /**
- * @todo - create deleteTodo function
- * @returns {void}
+ * @description
+ *  deleteTodo(deleteId) delete todo object from todos and todoItemWrapper class from DOM 
+ * @param {string} deleteId - uuid of todoItem Wraper class
  */
-function deleteTodo() {
-    console.log("deleteTodo!");
+function deleteTodo(deleteId) {
+    if (!deleteId) {
+        return ;
+    }
+    /** @type {HTMLDivElement | null} */
+    const DeleteItemWrapper = document.getElementById(deleteId);
+    /** @type {Number} */
+    const hasTodos = todos.length;
+    
+    if (hasTodos && DeleteItemWrapper) {
+        /**
+         * @type {Todo[] | []}
+         */
+        const filteredTodos = todos.filter((currentValue) => {
+            return currentValue.id != deleteId;
+        });
+        todos.length = 0; //clear todos
+        todos.push(...filteredTodos);
+
+        DeleteItemWrapper.remove();
+    }
 }
 
 /**
