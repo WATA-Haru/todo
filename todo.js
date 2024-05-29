@@ -86,7 +86,10 @@ function createTodo() {
     
     // create elms
     const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
-    todoItemWrapper.id = todos?.at(-1).id; //get newest todo item by using todos?.at(-1)
+    if (todos.length)
+    {
+        todoItemWrapper.id = todos.at(-1).id;
+    }
 
     const todoItem = createElementWrapper("li", "todoItem", null);
     const todoContent = createElementWrapper("span", "todoContent", input.value);
