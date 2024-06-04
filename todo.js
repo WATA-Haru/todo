@@ -20,13 +20,42 @@ const StatusEnum = Object.freeze({
 });
 
 /**
+ * @description
+ * check if todoItem.status is done or not
+ * @param {Todo | undefined} todoItem checked todo object
+ * @return {bool}
+*/
+function isStatusDone(todoItem) {
+    return todoItem?.status === StatusEnum.Done;
+}
+
+/**
+ * @description
+ * check if todoItem.status is deleted or not
+ * @param {Todo | undefined} todoItem checked todo object
+ * @return {bool}
+*/
+function isStatusDeleted(todoItem) {
+    return todoItem?.status === StatusEnum.DELETED;
+}
+/**
+ * @description
+ * check if todoItem.status is todo or not
+ * @param {Todo | undefined} todoItem checked todo object
+ * @return {bool}
+*/
+function isStatusTodo(todoItem) {
+    return todoItem?.status === StatusEnum.TODO;
+}
+
+/**
  * todos has todo's content and status value
  * @typedef {Object} Todo - todo object
  * @property {string} id - Todo id (uuid). It is used when change indivisual todo item.
  * @property {string} content - The description of the todo item.
  * @property {StatusEnum} status - todo status that defines statusEnum.
 **/
-/**@type {Todo[] | []} */
+/** @type {Todo[]} */
 const todos = [];
 
 /**
@@ -95,7 +124,7 @@ function createTodo() {
     const todoContent = createElementWrapper("span", "todoContent", input.value);
 
     const doneButton = createElementWrapper("button", "doneButton", StatusEnum.DONE);
-    doneButton.addEventListener("click", doneTodo);
+    doneButton.addEventListener("click", () => doneTodo(todoItemWrapper.id));
 
     const deleteButton = createElementWrapper("button", "deleteButton", StatusEnum.DELETED);
     deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
@@ -125,25 +154,69 @@ function deleteTodo(deleteId) {
     const hasTodos = todos.length;
     
     if (hasTodos && DeleteItemWrapper) {
-        /**
-         * @type {Todo[] | []}
-         */
+        // remove list
+        /** @type {Todo[]}*/
         const filteredTodos = todos.filter((currentValue) => {
             return currentValue.id != deleteId;
         });
         todos.length = 0; //clear todos
         todos.push(...filteredTodos);
 
+        // remove DOM element
         DeleteItemWrapper.remove();
     }
 }
 
 /**
- * @todo - create doneTodo function
- * @returns {void}
+ * @description
+ * check if single element or not (ex. [1]->true, []->false, [2,3]->false)
+ * @param {Todo[]} todoList checked todo object list
+ * @return {bool}
+*/
+function isSingleElement(todoList) {
+    return (todoList.length === 1);
+}
+
+/**
+ * @description
+ * doneTodo(doneId) change Todo status to Done and move todoItemWrapper class to DoneArea
+ * @param {string} doneId - uuid of todoItem Wrapper class
  */
-function doneTodo() {
-    console.log("doneTodo!")
+function doneTodo(doneId) {
+    if (!doneId) {
+        return ;
+    }
+    /** @type {HTMLDivElement | null} */
+    const todoItemWrapper = document.getElementById(doneId);
+    /** @type {Number} */
+    const hasTodo = todos.length;
+
+    // add todo elms to todoArea by using DOM handle
+   if (hasTodo && todoItemWrapper)
+    {
+        // change list status to Done
+        /** @type {Todo[]} */
+        const toBeDone = todos.filter((current) => {
+            return current.id === doneId;
+        });
+        if (!isSingleElement(toBeDone) || isStatusDone(toBeDone[0])) {
+            return ;
+        }
+        /**@type {Todo | undefined} */
+        const toBeDoneItem = toBeDone[0];
+        toBeDoneItem.status = StatusEnum.DONE;
+
+        // move DOM element
+        /**@type {HTMLUListElement | null} */
+        const todoArea = document.querySelector(".todoArea");
+        /**@type {HTMLUListElement | null} */
+        const doneArea = document.querySelector(".doneArea");
+        if (!todoArea || !doneArea)
+        {
+            return ;
+        }
+        doneArea.appendChild(todoItemWrapper);
+    }
 }
 
 document.querySelector(".submitButton").addEventListener("click", createTodo);
