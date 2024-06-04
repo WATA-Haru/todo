@@ -26,7 +26,7 @@ const StatusEnum = Object.freeze({
  * @return {bool}
 */
 function isStatusDone(todoItem) {
-    return todoItem?.status === StatusEnum.Done;
+    return todoItem?.status === StatusEnum.DONE;
 }
 
 /**
