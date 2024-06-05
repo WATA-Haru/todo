@@ -169,6 +169,21 @@ function deleteTodo(deleteId) {
 
 /**
  * @description
+ * check if todoItem.status already has done or not
+ * @param {Todo | undefined} todoItem - todo object
+ * @returns {boolean}
+ */
+function isChangeStatusDone(todoItem) {
+    const hasStatus = todoItem.hasOwnProperty("status");
+    if (hasStatus) {
+        todoItem.status = StatusEnum.DONE;
+    }
+    
+    return hasStatus;
+}
+
+/**
+ * @description
  * doneTodo(doneId) change Todo status to Done and move todoItemWrapper class to DoneArea
  * @param {string} doneId - uuid of todoItem Wrapper class
  */
