@@ -1,5 +1,4 @@
 "use strict"
-
 /**
  * @description 
  * Enums for todo status <br>
@@ -178,7 +177,7 @@ function isChangeStatusDone(todoItem) {
     if (hasStatus) {
         todoItem.status = StatusEnum.DONE;
     }
-    
+
     return hasStatus;
 }
 
@@ -188,6 +187,7 @@ function isChangeStatusDone(todoItem) {
  * @param {string} doneId - uuid of todoItem Wrapper class
  */
 function doneTodo(doneId) {
+    // validation
     if (!doneId) {
         return ;
     }
@@ -195,33 +195,25 @@ function doneTodo(doneId) {
     const todoItemWrapper = document.getElementById(doneId);
     /** @type {Number} */
     const hasTodo = todos.length;
-
-    // add todo elms to todoArea by using DOM handle
-   if (hasTodo && todoItemWrapper)
-    {
-        // change list status to Done
-        /** @type {Todo[]} */
-        const toBeDone = todos.filter((current) => {
-            return current.id === doneId;
-        });
-        if (!isSingleElement(toBeDone) || isStatusDone(toBeDone[0])) {
-            return ;
-        }
-        /**@type {Todo | undefined} */
-        const toBeDoneItem = toBeDone[0];
-        toBeDoneItem.status = StatusEnum.DONE;
-
-        // move DOM element
-        /**@type {HTMLUListElement | null} */
-        const todoArea = document.querySelector(".todoArea");
-        /**@type {HTMLUListElement | null} */
-        const doneArea = document.querySelector(".doneArea");
-        if (!todoArea || !doneArea)
-        {
-            return ;
-        }
-        doneArea.appendChild(todoItemWrapper);
+    if (!hasTodo || !todoItemWrapper) {
+        return ;
     }
+
+    // change todoItem.status to done
+    /** @type {Todo | undefined} */
+    const toBeDone = todos.find((element) => element.id === doneId);
+    /** @type {boolean} */
+    const isChanged = isChangeStatusDone(toBeDone);
+
+    // move DOM element
+    /**@type {HTMLUListElement | null} */
+    const todoArea = document.querySelector(".todoArea");
+    /**@type {HTMLUListElement | null} */
+    const doneArea = document.querySelector(".doneArea");
+    if (!todoArea || !doneArea || !isChanged) {
+        return ;
+    }
+    doneArea.appendChild(todoItemWrapper);
 }
 
 document.querySelector(".submitButton").addEventListener("click", createTodo);
