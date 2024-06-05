@@ -169,16 +169,6 @@ function deleteTodo(deleteId) {
 
 /**
  * @description
- * check if single element or not (ex. [1]->true, []->false, [2,3]->false)
- * @param {Todo[]} todoList checked todo object list
- * @return {bool}
-*/
-function isSingleElement(todoList) {
-    return (todoList.length === 1);
-}
-
-/**
- * @description
  * doneTodo(doneId) change Todo status to Done and move todoItemWrapper class to DoneArea
  * @param {string} doneId - uuid of todoItem Wrapper class
  */
