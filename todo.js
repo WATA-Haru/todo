@@ -23,7 +23,7 @@ const StatusEnum = Object.freeze({
  * @description
  * check if todoItem.status is done or not
  * @param {Todo | undefined} todoItem checked todo object
- * @return {bool}
+ * @return {boolean}
 */
 function isStatusDone(todoItem) {
     return todoItem?.status === StatusEnum.DONE;
@@ -33,7 +33,7 @@ function isStatusDone(todoItem) {
  * @description
  * check if todoItem.status is deleted or not
  * @param {Todo | undefined} todoItem checked todo object
- * @return {bool}
+ * @return {boolean}
 */
 function isStatusDeleted(todoItem) {
     return todoItem?.status === StatusEnum.DELETED;
@@ -42,7 +42,7 @@ function isStatusDeleted(todoItem) {
  * @description
  * check if todoItem.status is todo or not
  * @param {Todo | undefined} todoItem checked todo object
- * @return {bool}
+ * @return {boolean}
 */
 function isStatusTodo(todoItem) {
     return todoItem?.status === StatusEnum.TODO;
