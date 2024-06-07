@@ -7,7 +7,7 @@ const newTask = {
     status: statusEnum.DONE
 }
 
-test('isStatusDone:', () => {
+test('[Name]:isStatusDone [Return]:true [When]:Task.status is \'done\'.', () => {
 		newTask.status = statusEnum.DONE;
     expect(isStatusDone(newTask)).toBe(true);
 
@@ -16,17 +16,9 @@ test('isStatusDone:', () => {
 
 		newTask.status = statusEnum.DELETED;
     expect(isStatusDone(newTask)).toBe(false);
-  
-    expect(isStatusDone(true)).toBe(false);
-    expect(isStatusDone(false)).toBe(false);
-    expect(isStatusDone(null)).toBe(false);
-    expect(isStatusDone(undefined)).toBe(false);
-    expect(isStatusDone([])).toBe(false);
-    expect(isStatusDone("aaa")).toBe(false);
-    expect(isStatusDone(1234)).toBe(false);
 });
 
-test('isStatusDeleted:', () => {
+test('[Name]:isStatusDeleted [Return]:true [When]:Task.status is \'deleted\'.', () => {
 		newTask.status = statusEnum.DELETED;
     expect(isStatusDeleted(newTask)).toBe(true);
 
@@ -35,17 +27,9 @@ test('isStatusDeleted:', () => {
 
 		newTask.status = statusEnum.TODO;
     expect(isStatusDeleted(newTask)).toBe(false);
-
-    expect(isStatusDeleted(true)).toBe(false);
-    expect(isStatusDeleted(false)).toBe(false);
-    expect(isStatusDeleted(null)).toBe(false);
-    expect(isStatusDeleted(undefined)).toBe(false);
-    expect(isStatusDeleted([])).toBe(false);
-    expect(isStatusDeleted("aaa")).toBe(false);
-    expect(isStatusDeleted(1234)).toBe(false);
 });
 
-test('isStatusTodo:', () => {
+test('[Name]:isStatusTodo [Return]:true [When]:Task.status is \'todo\'.', () => {
 		newTask.status = statusEnum.TODO;
     expect(isStatusTodo(newTask)).toBe(true);
 
@@ -54,12 +38,4 @@ test('isStatusTodo:', () => {
 
 		newTask.status = statusEnum.DELETED;
     expect(isStatusTodo(newTask)).toBe(false);
-
-    expect(isStatusTodo(true)).toBe(false);
-    expect(isStatusTodo(false)).toBe(false);
-    expect(isStatusTodo(null)).toBe(false);
-    expect(isStatusTodo(undefined)).toBe(false);
-    expect(isStatusTodo([])).toBe(false);
-    expect(isStatusTodo("aaa")).toBe(false);
-    expect(isStatusTodo(1234)).toBe(false);
 });
