@@ -6,10 +6,10 @@
 /** @type {import('jest').Config} */
 const config = {
   // All imported modules in your tests should be mocked automatically
-  // automock: false,
+  automock: false,
 
   // Stop running tests after `n` failures
-  // bail: 0,
+  bail: 0,
 
   // The directory where Jest should store its cached dependency information
   cacheDirectory: "/tmp/jest_rs",
@@ -174,7 +174,10 @@ const config = {
   testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  transform: undefined,
+	// [add] it enables us to use ES Modules import export syntax in our tests
+  transform: {
+    "\\.[jt]sx?$": "babel-jest"
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
