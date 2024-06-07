@@ -2,7 +2,7 @@
   "name": "todo",
   "version": "1.0.0",
   "description": "",
-  "main": "todo.js",
+  "main": "./src/js/todo.js",
   "scripts": {
     "test": "jest"
   },
