@@ -13,10 +13,8 @@
  * @property {string} DELETED - Represents a deleted status
  * @readonly
  */
-const statusEnum = Object.freeze({
+export const statusEnum = Object.freeze({
     TODO: "todo",
     DONE: "done",
     DELETED: "deleted"
 });
-
-export { statusEnum };

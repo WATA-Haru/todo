@@ -1,6 +1,6 @@
 "use strict"
 import { statusEnum } from "./statusEnum.js";
-import { isStatusDone, isStatusDeleted, isStatusTodo } from './utils.js';
+import { isStatusDone, isStatusDeleted, isStatusTodo } from "./utils.js";
 
 /**
  * todos has todo's content and status value

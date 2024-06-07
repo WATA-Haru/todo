@@ -7,7 +7,7 @@ import { statusEnum } from "./statusEnum.js";
  * @param {Todo | undefined} todoItem checked todo object
  * @return {boolean}
 */
-function isStatusDone(todoItem) {
+export function isStatusDone(todoItem) {
     return todoItem?.status === statusEnum.DONE;
 }
 
@@ -17,7 +17,7 @@ function isStatusDone(todoItem) {
  * @param {Todo | undefined} todoItem checked todo object
  * @return {boolean}
 */
-function isStatusDeleted(todoItem) {
+export function isStatusDeleted(todoItem) {
     return todoItem?.status === statusEnum.DELETED;
 }
 /**
@@ -26,9 +26,6 @@ function isStatusDeleted(todoItem) {
  * @param {Todo | undefined} todoItem checked todo object
  * @return {boolean}
 */
-function isStatusTodo(todoItem) {
+export function isStatusTodo(todoItem) {
     return todoItem?.status === statusEnum.TODO;
 }
-
-
-export { isStatusDone, isStatusDeleted, isStatusTodo };
