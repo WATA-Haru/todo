@@ -13,12 +13,11 @@ import { isStatusDone, isStatusDeleted, isStatusTodo } from "./utils.js";
 const todos = [];
 
 /**
- * @returns {void}
- * @param {string} id Todo id (uuid).
  * @param {string} inputContent todo content field.
  * @param {statusEnum} inputStatus todo status filld.
  */
 function appendTodos(inputContent, inputStatus) {
+    /**@type {Todo}*/
     const newTask = {
         id: crypto.randomUUID(),
         content: inputContent,
@@ -36,7 +35,7 @@ function appendTodos(inputContent, inputStatus) {
  * @param {string} tag - html tag will be created
  * @param {string} className - (option) html class name
  * @param {string} innerText - (option) text content
- * @returns {object} element - createElement result
+ * @returns {HTMLElement} element - createElement result
  */
 function createElementWrapper(tag, className, innerText) {
     if (!tag) {
@@ -55,34 +54,38 @@ function createElementWrapper(tag, className, innerText) {
 /**
  * @description
  *  createTodo() crates todo component and add it to todoArea
- * @returns {void}
  */
 function createTodo() {
+    /**@type {HTMLElement | null} */
     const input = document.querySelector(".userInput");
     if (!input.value) {
         return ;
     }
 
     //add todo to todos
+    /**@type {HTMLElement | null} */
     const todoArea = document.querySelector(".todoArea");
     appendTodos(input.value, statusEnum.TODO);
-    
+
     // create elms
+    /**@type {HTMLElement | null} */
     const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
     if (todos.length)
     {
         todoItemWrapper.id = todos.at(-1).id;
     }
 
+    /**@type {HTMLLIElement | null} */
     const todoItem = createElementWrapper("li", "todoItem", null);
+    /**@type {HTMLSpanElement | null} */
     const todoContent = createElementWrapper("span", "todoContent", input.value);
-
+    /**@type {HTMLButtonElement | null} */
     const doneButton = createElementWrapper("button", "doneButton", statusEnum.DONE);
     doneButton.addEventListener("click", () => doneTodo(todoItemWrapper.id));
-
+    /**@type {HTMLButtonElement | null} */
     const deleteButton = createElementWrapper("button", "deleteButton", statusEnum.DELETED);
     deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
-       
+    
     // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
     todoItemWrapper.appendChild(todoItem);
@@ -128,11 +131,12 @@ function deleteTodo(deleteId) {
  * @returns {boolean}
  */
 function isChangeStatusDone(todoItem) {
+    /**@type {boolean} */
     const hasStatus = todoItem.hasOwnProperty("status");
+
     if (hasStatus) {
         todoItem.status = statusEnum.DONE;
     }
-
     return hasStatus;
 }
 
