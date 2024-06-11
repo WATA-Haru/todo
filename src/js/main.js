@@ -49,7 +49,7 @@ function isNullTag(element)
  * @param {string} innerText - (option) text content
  * @returns {Element} element - createElement result
  */
-function createElementWrapper(tag, className, innerText) {
+function createElementWrapper(tag, className = null, innerText = null) {
     /**@type {Element}*/
     const element = document.createElement(tag);
     if (className) {
