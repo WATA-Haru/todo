@@ -17,16 +17,32 @@ export function deleteTodo(todos, deleteId) {
     const DeleteItemWrapper = document.getElementById(deleteId);
     
     if (DeleteItemWrapper) {
-        // remove list
-        /** @type {Todo[]}*/
-        const filteredTodos = todos.filter((currentValue) => {
-            return currentValue.id != deleteId;
-        });
-        todos.length = 0; //clear todos
-        todos.push(...filteredTodos);
-
-        // remove DOM element
+		deleteTodoFromList(todos, deleteId);
         DeleteItemWrapper.remove();
     }
+	return ;
+}
+
+/**
+ * 
+ *  @description
+ *  deleteTodo(deleteId) Mutable function. delete object from todos by deleteId
+ * @param {Todo[]} todos- todo object list 
+ * @param {string | null} deleteId - uuid of todoItem Wraper class
+ * @returns {void}
+ */
+function deleteTodoFromList(todos, deleteId)
+{
+    /** @type {Number} */
+	const hasTodo = todos.length;
+	if (!hasTodo || deleteId)
+		return ;
+
+	/** @type {Todo[]}*/
+	const filteredTodos = todos.filter((currentValue) => {
+		return currentValue.id != deleteId;
+	});
+	todos.length = 0; //clear todos
+	todos.push(...filteredTodos);
 	return ;
 }
