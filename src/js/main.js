@@ -27,7 +27,19 @@ function appendTodos(inputContent, inputStatus) {
 }
 
 /**
- * @todo - add check args statement when tag is falsy
+ * @description
+ * check element <null></null> tag or not
+ * @param {element} Element
+ * @returns {boolean} is_tag
+ */
+function isNullTag(element)
+{
+    if (element.tagName === "NULL")
+        return (true);
+    return (false);
+}
+
+/**
  * @description
  * this function wrap createElement <br>
  * recieve className and innerText as option values <br>
@@ -35,12 +47,10 @@ function appendTodos(inputContent, inputStatus) {
  * @param {string} tag - html tag will be created
  * @param {string} className - (option) html class name
  * @param {string} innerText - (option) text content
- * @returns {HTMLElement} element - createElement result
+ * @returns {Element} element - createElement result
  */
 function createElementWrapper(tag, className, innerText) {
-    if (!tag) {
-        return ;
-    }
+    /**@type {Element}*/
     const element = document.createElement(tag);
     if (className) {
         element.className = className;
@@ -56,36 +66,43 @@ function createElementWrapper(tag, className, innerText) {
  *  createTodo() crates todo component and add it to todoArea
  */
 function createTodo() {
-    /**@type {HTMLElement | null} */
+    /**@type {Element | null} */
     const input = document.querySelector(".userInput");
-    if (!input.value) {
+    if (!input) {
         return ;
     }
 
-    //add todo to todos
-    /**@type {HTMLElement | null} */
+    // add todo to todos
+    /**@type {Element} */
     const todoArea = document.querySelector(".todoArea");
+    if (!todoArea) {
+        return ;
+    }
     appendTodos(input.value, statusEnum.TODO);
 
-    // create elms
-    /**@type {HTMLElement | null} */
+    /**@type {Element} */
     const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
-    if (todos.length)
-    {
-        todoItemWrapper.id = todos.at(-1).id;
+    if (todos.length == 0){
+        return ;
     }
+    todoItemWrapper.id = todos.at(-1).id; // get newest todo
 
-    /**@type {HTMLLIElement | null} */
+    /**@type {Element} */
     const todoItem = createElementWrapper("li", "todoItem", null);
-    /**@type {HTMLSpanElement | null} */
+    /**@type {Element} */
     const todoContent = createElementWrapper("span", "todoContent", input.value);
-    /**@type {HTMLButtonElement | null} */
+    /**@type {Element} */
     const doneButton = createElementWrapper("button", "doneButton", statusEnum.DONE);
     doneButton.addEventListener("click", () => doneTodo(todoItemWrapper.id));
-    /**@type {HTMLButtonElement | null} */
+    /**@type {Element} */
     const deleteButton = createElementWrapper("button", "deleteButton", statusEnum.DELETED);
     deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
-    
+    /**@type {Element[]} */
+    const elements = [todoItemWrapper, todoItem, todoContent, doneButton, deleteButton];
+    if (elements.some(isNullTag)) {
+        return ;
+    }
+
     // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
     todoItemWrapper.appendChild(todoItem);
