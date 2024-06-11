@@ -28,19 +28,6 @@ function appendTodos(inputContent, inputStatus) {
 
 /**
  * @description
- * check element <null></null> tag or not
- * @param {element} Element
- * @returns {boolean} is_tag
- */
-function isNullTag(element)
-{
-    if (element.tagName === "NULL")
-        return (true);
-    return (false);
-}
-
-/**
- * @description
  * this function wrap createElement <br>
  * recieve className and innerText as option values <br>
  * createElementWrapper set these params.
@@ -97,11 +84,6 @@ function createTodo() {
     /**@type {Element} */
     const deleteButton = createElementWrapper("button", "deleteButton", statusEnum.DELETED);
     deleteButton.addEventListener("click", () => deleteTodo(todoItemWrapper.id));
-    /**@type {Element[]} */
-    const elements = [todoItemWrapper, todoItem, todoContent, doneButton, deleteButton];
-    if (elements.some(isNullTag)) {
-        return ;
-    }
 
     // add todo elms to todoArea by using DOM handle
     todoArea.appendChild(todoItemWrapper);
