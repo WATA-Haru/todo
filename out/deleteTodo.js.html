@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: main.js</title>
+    <title>JSDoc: Source: deleteTodo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: main.js</h1>
+    <h1 class="page-title">Source: deleteTodo.js</h1>
 
     
 
@@ -26,21 +26,38 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict"
-import { statusEnum } from "./statusEnum.js";
-import { createTodo } from "./createTodo.js";
+            <pre class="prettyprint source linenums"><code>import { statusEnum } from "./statusEnum.js"
 
 /**
- * todos has todo's content and status value
- * @typedef {Object} Todo - todo object
- * @property {string} id - Todo id (uuid). It is used when change indivisual todo item.
- * @property {string} content - The description of the todo item.
- * @property {statusEnum} status - todo status that defines statusEnum.
-**/
-/** @type {Todo[]} */
-const todos = [];
+ * @description
+ *  deleteTodo(deleteId) delete todo object from todos and todoItemWrapper class from DOM 
+ * @param {Todo[]} todos- todo object list 
+ * @param {string | null} deleteId - uuid of todoItem Wraper class
+ * @returns {void}
+ */
+export function deleteTodo(todos, deleteId) {
+    /** @type {Number} */
+	const hasTodo = todos.length;
+    if (!hasTodo || !deleteId) {
+        return ;
+    }
+    /** @type {HTMLDivElement | null} */
+    const DeleteItemWrapper = document.getElementById(deleteId);
+    
+    if (DeleteItemWrapper) {
+        // remove list
+        /** @type {Todo[]}*/
+        const filteredTodos = todos.filter((currentValue) => {
+            return currentValue.id != deleteId;
+        });
+        todos.length = 0; //clear todos
+        todos.push(...filteredTodos);
 
-document.querySelector(".submitButton").addEventListener("click", () => createTodo(todos));
+        // remove DOM element
+        DeleteItemWrapper.remove();
+    }
+	return ;
+}
 </code></pre>
         </article>
     </section>

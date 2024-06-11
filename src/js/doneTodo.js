@@ -19,18 +19,19 @@ function isChangeStatusDone(todoItem) {
 /**
  * @description
  * doneTodo(doneId) change Todo status to Done and move todoItemWrapper class to DoneArea
- * @param {string} doneId - uuid of todoItem Wrapper class
+ * @param {Todo[]} - todo object list
+ * @param {string | null} doneId - uuid of todoItem Wrapper class
  */
 export function doneTodo(todos, doneId) {
-    // validation
-    if (!doneId) {
+    /** @type {Number} */
+	const hasTodo = todos.length;
+    if (!hasTodo || !doneId) {
         return ;
     }
     /** @type {HTMLDivElement | null} */
     const todoItemWrapper = document.getElementById(doneId);
     /** @type {Number} */
-    const hasTodo = todos.length;
-    if (!hasTodo || !todoItemWrapper) {
+    if (!todoItemWrapper) {
         return ;
     }
 

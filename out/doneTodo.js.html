@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils.js</title>
+    <title>JSDoc: Source: doneTodo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils.js</h1>
+    <h1 class="page-title">Source: doneTodo.js</h1>
 
     
 
@@ -26,52 +26,59 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>"use strict"
-import { statusEnum } from "./statusEnum.js";
+            <pre class="prettyprint source linenums"><code>import { statusEnum } from "./statusEnum.js";
 
 /**
  * @description
- * check if todoItem.status is done or not
- * @param {Todo | undefined} todoItem checked todo object
- * @return {boolean}
-*/
-export function isStatusDone(todoItem) {
-    return todoItem?.status === statusEnum.DONE;
+ * check if todoItem.status already has done or not
+ * @param {Todo | undefined} todoItem - todo object
+ * @returns {boolean}
+ */
+function isChangeStatusDone(todoItem) {
+    /**@type {boolean} */
+    const hasStatus = Object.hasOwn(todoItem, "status");
+
+    if (hasStatus) {
+        todoItem.status = statusEnum.DONE;
+    }
+    return hasStatus;
 }
 
 /**
  * @description
- * check if todoItem.status is deleted or not
- * @param {Todo | undefined} todoItem checked todo object
- * @return {boolean}
-*/
-export function isStatusDeleted(todoItem) {
-    return todoItem?.status === statusEnum.DELETED;
-}
-/**
- * @description
- * check if todoItem.status is todo or not
- * @param {Todo | undefined} todoItem checked todo object
- * @return {boolean}
-*/
-export function isStatusTodo(todoItem) {
-    return todoItem?.status === statusEnum.TODO;
-}
+ * doneTodo(doneId) change Todo status to Done and move todoItemWrapper class to DoneArea
+ * @param {Todo[]} - todo object list
+ * @param {string | null} doneId - uuid of todoItem Wrapper class
+ */
+export function doneTodo(todos, doneId) {
+    /** @type {Number} */
+	const hasTodo = todos.length;
+    if (!hasTodo || !doneId) {
+        return ;
+    }
+    /** @type {HTMLDivElement | null} */
+    const todoItemWrapper = document.getElementById(doneId);
+    /** @type {Number} */
+    if (!todoItemWrapper) {
+        return ;
+    }
 
-/**
-* @param {string} inputContent todo content field.
-* @param {statusEnum} inputStatus todo status filld.
-*/
-export function appendTodos(todos, inputContent, inputStatus) {
-   /**@type {Todo}*/
-   const newTask = {
-       id: crypto.randomUUID(),
-       content: inputContent,
-       status: inputStatus
-   }
-   todos.push(newTask);
-}
+    // change todoItem.status to done
+    /** @type {Todo | undefined} */
+    const toBeDone = todos.find((element) => element.id === doneId);
+    /** @type {boolean} */
+    const isChanged = isChangeStatusDone(toBeDone);
 
+    // move DOM element
+    /**@type {HTMLUListElement | null} */
+    const todoArea = document.querySelector(".todoArea");
+    /**@type {HTMLUListElement | null} */
+    const doneArea = document.querySelector(".doneArea");
+    if (!todoArea || !doneArea || !isChanged) {
+        return ;
+    }
+    doneArea.appendChild(todoItemWrapper);
+}
 </code></pre>
         </article>
     </section>
