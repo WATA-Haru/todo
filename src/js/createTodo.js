@@ -9,12 +9,6 @@ import { doneTodo } from "./doneTodo.js"
  * @returns {void}
  */
 export function createTodo(todos) {
-    /** @type {Number} */
-	const hasTodo = todos.length;
-	
-	if (!hasTodo) {
-		return ;
-	}
 	// add input to todos
 	/**@type {Element | null} */
 	const input = document.querySelector(".userInput");
