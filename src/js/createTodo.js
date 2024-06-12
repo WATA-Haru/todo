@@ -19,11 +19,13 @@ export function createTodo(todos) {
 	if (todos.length == 0){
 		return ;
 	}
+
+	// if DOM manipulation has failed, remove newest todo item 
 	/**@type {Todo} */
 	const currentTodo = todos.at(-1);
 	input.value = "";
-	
-	appendTodoDOM(todos, currentTodo);
+	if (haveCreatedTodoDOM(todos, currentTodo) === false)
+		todos.pop;
 	return ;
 }
 
@@ -53,23 +55,23 @@ function createElementWrapper(tag, className = null, innerText = null) {
  * 
  * @param {Todo[]} todos -todo objects list
  * @param {Todo | undefined} currentTodo -current todo object
- * @returns {void}
+ * @returns {boolean}
  */
-function appendTodoDOM(todos, currentTodo)
+function haveCreatedTodoDOM(todos, currentTodo)
 {
     /** @type {Number} */
 	const hasTodo = todos.length;
     /** @type {boolean} */
     const hasStatus = Object.hasOwn(currentTodo, "status");
-    
     if (!hasTodo || !hasStatus) {
-		return ;
+		return false;
 	}
 	/**@type {Element} */
 	const todoArea = document.querySelector(".todoArea");
 	if (!todoArea) {
-		return ;
+		return false;
 	}
+
 	/**@type {Element} */
 	const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
 	todoItemWrapper.id = currentTodo.id;
