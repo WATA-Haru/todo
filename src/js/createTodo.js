@@ -9,24 +9,49 @@ import { doneTodo } from "./doneTodo.js"
  * @returns {void}
  */
 export function createTodo(todos) {
-	// add input to todos
 	/**@type {Element | null} */
 	const input = document.querySelector(".userInput");
 	if (!input) {
 		return ;
 	}
+
+	// add input to todos
 	appendTodos(todos, input.value, statusEnum.TODO);
+	
+	// check todos
 	if (todos.length == 0){
+		return ;
+	}
+	/**@type {Todo} */
+	const currentTodo = todos.at(-1);
+	input.value = "";
+	if (!isValid(todos, currentTodo)) {
 		return ;
 	}
 
 	// if DOM manipulation has failed, remove newest todo item 
-	/**@type {Todo} */
-	const currentTodo = todos.at(-1);
-	input.value = "";
-	if (haveCreatedTodoDOM(todos, currentTodo) === false)
-		todos.pop;
+	if (isCreatedTodoDOM(todos, currentTodo) === false)
+		todos.pop();
+
 	return ;
+}
+
+/**
+ * 
+ * @param {Todo[]} todos 
+ * @returns {boolean}
+ */
+function isValid(todos, currentTodo)
+{
+	/** @type {Number} */
+	const hasTodo = todos.length;
+    /** @type {boolean} */
+    const hasStatus = Object.hasOwn(currentTodo, "status");
+
+    if (!hasTodo || !hasStatus) {
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -57,21 +82,12 @@ function createElementWrapper(tag, className = null, innerText = null) {
  * @param {Todo | undefined} currentTodo -current todo object
  * @returns {boolean}
  */
-function haveCreatedTodoDOM(todos, currentTodo)
-{
-    /** @type {Number} */
-	const hasTodo = todos.length;
-    /** @type {boolean} */
-    const hasStatus = Object.hasOwn(currentTodo, "status");
-    if (!hasTodo || !hasStatus) {
-		return false;
-	}
+function isCreatedTodoDOM(todos, currentTodo) {
 	/**@type {Element} */
 	const todoArea = document.querySelector(".todoArea");
 	if (!todoArea) {
 		return false;
 	}
-
 	/**@type {Element} */
 	const todoItemWrapper = createElementWrapper("div", "todoItemWrapper", null);
 	todoItemWrapper.id = currentTodo.id;
@@ -92,5 +108,6 @@ function haveCreatedTodoDOM(todos, currentTodo)
 	todoItem.appendChild(doneButton);
 	todoItem.appendChild(todoContent);
 	todoItem.appendChild(deleteButton);
-    return ;
+
+	return true;
 }
