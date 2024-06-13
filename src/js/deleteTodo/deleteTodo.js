@@ -1,4 +1,5 @@
-import { statusEnum } from "./statusEnum.js"
+"use strict"
+import { statusEnum } from "../statusEnum/statusEnum.js"
 
 /**
  * @description

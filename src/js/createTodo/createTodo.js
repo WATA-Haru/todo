@@ -1,4 +1,5 @@
-import { statusEnum } from "./statusEnum.js"
+"use strict"
+import { statusEnum } from "../statusEnum/statusEnum.js"
 import { appendTodos } from "./utils.js"
 import { deleteTodo } from "./deleteTodo.js"
 import { doneTodo } from "./doneTodo.js"
